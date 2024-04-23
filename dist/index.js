@@ -54447,6 +54447,15 @@ async function run() {
         const workflowRunStatus = core.getInput('workflow-run-status', {
             required: false,
         });
+        const workflowRunCreated = core.getInput('workflow-run-created', {
+            required: false,
+        });
+        const workflowRunBranch = core.getInput('workflow-run-branch', {
+            required: false,
+        });
+        const workflowRunActor = core.getInput('workflow-run-actor', {
+            required: false,
+        });
         const githubRepository = inputGithubRepository === ''
             ? process.env.GITHUB_REPOSITORY
             : inputGithubRepository;
@@ -54455,6 +54464,9 @@ async function run() {
             owner,
             repo,
             status: workflowRunStatus === '' ? undefined : workflowRunStatus,
+            created: workflowRunCreated === '' ? undefined : workflowRunCreated,
+            branch: workflowRunBranch === '' ? undefined : workflowRunBranch,
+            actor: workflowRunActor === '' ? undefined : workflowRunActor,
             headers: {
                 'X-GitHub-Api-Version': '2022-11-28',
             },

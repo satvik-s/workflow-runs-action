@@ -12,6 +12,15 @@ export async function run(): Promise<void> {
     const workflowRunStatus = core.getInput('workflow-run-status', {
       required: false,
     });
+    const workflowRunCreated = core.getInput('workflow-run-created', {
+      required: false,
+    });
+    const workflowRunBranch = core.getInput('workflow-run-branch', {
+      required: false,
+    });
+    const workflowRunActor = core.getInput('workflow-run-actor', {
+      required: false,
+    });
     const githubRepository =
       inputGithubRepository === ''
         ? process.env.GITHUB_REPOSITORY!
@@ -26,6 +35,15 @@ export async function run(): Promise<void> {
         status:
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           workflowRunStatus === '' ? undefined : (workflowRunStatus as any),
+        created:
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          workflowRunCreated === '' ? undefined : (workflowRunCreated as any),
+        branch:
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          workflowRunBranch === '' ? undefined : (workflowRunBranch as any),
+        actor:
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          workflowRunActor === '' ? undefined : (workflowRunActor as any),
         headers: {
           'X-GitHub-Api-Version': '2022-11-28',
         },

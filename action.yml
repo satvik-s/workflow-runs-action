@@ -15,6 +15,18 @@ inputs:
     description: 'Status of workflow runs to filter'
     required: false
     default: ''
+  workflow-run-created:
+    description: 'Created time/date syntax of workflow runs to filter'
+    required: false
+    default: ''
+  workflow-run-branch:
+    description: 'Branch of workflow runs to filter'
+    required: false
+    default: ''
+  workflow-run-actor:
+    description: 'Actor of workflow runs to filter'
+    required: false
+    default: ''
 
 outputs:
   runs-summary:
