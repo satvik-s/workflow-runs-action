@@ -19,6 +19,8 @@ inputs:
 outputs:
   runs-summary:
     description: 'Workflow runs output'
+  runs-count:
+    description: 'Workflow runs count'
 
 runs:
   using: node20

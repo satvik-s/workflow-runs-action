@@ -33,6 +33,7 @@ export async function run(): Promise<void> {
     );
 
     core.setOutput('runs-summary', JSON.stringify(response.data, undefined, 2));
+    core.setOutput('runs-count', response.data.total_count);
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message);
   }
