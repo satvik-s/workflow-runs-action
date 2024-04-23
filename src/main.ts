@@ -6,7 +6,6 @@ const octokit = new Octokit();
 export async function run(): Promise<void> {
   try {
     core.info('hello from workflow-runs action');
-    core.setOutput('time', new Date().toTimeString());
     const inputGithubRepository = core.getInput('github-repository', {
       required: false,
     });
