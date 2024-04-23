@@ -2,22 +2,23 @@ name: 'workflow-runs'
 description: 'Provide a description here'
 author: 'Satvik shukla'
 
-# Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
   icon: 'heart'
   color: 'red'
 
-# Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
-    required: true
-    default: '1000'
+  github-repository:
+    description: 'Name of github repository to list workflow runs for'
+    required: false
+    default: ''
+  workflow-run-status:
+    description: 'Status of workflow runs to filter'
+    required: false
+    default: ''
 
-# Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  runs-summary:
+    description: 'Workflow runs output'
 
 runs:
   using: node20
