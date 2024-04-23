@@ -54441,7 +54441,6 @@ const octokit = new action_1.Octokit();
 async function run() {
     try {
         core.info('hello from workflow-runs action');
-        core.setOutput('time', new Date().toTimeString());
         const inputGithubRepository = core.getInput('github-repository', {
             required: false,
         });
