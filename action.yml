@@ -1,6 +1,6 @@
-name: 'The name of your action here'
+name: 'workflow-runs'
 description: 'Provide a description here'
-author: 'Your name or organization here'
+author: 'Satvik shukla'
 
 # Add your action's branding here. This will appear on the GitHub Marketplace.
 branding:
