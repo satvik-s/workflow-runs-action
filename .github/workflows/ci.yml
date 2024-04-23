@@ -61,4 +61,4 @@ jobs:
 
       - name: Print Output
         id: output
-        run: echo -e "${{ steps.test-action.outputs.runs-summary }}"
+        run: printf "${{ steps.test-action.outputs.runs-summary }}"
