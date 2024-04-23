@@ -5,7 +5,7 @@ const octokit = new Octokit();
 
 export async function run(): Promise<void> {
   try {
-    core.info('hello from workflow-runs action');
+    core.debug('hello from workflow-runs action');
     const inputGithubRepository = core.getInput('github-repository', {
       required: false,
     });
@@ -49,7 +49,8 @@ export async function run(): Promise<void> {
         },
       },
     );
-
+    core.info('Output of GitHub API call ->');
+    core.info(JSON.stringify(response.data, undefined, 2));
     core.setOutput('runs-summary', JSON.stringify(response.data, undefined, 2));
     core.setOutput('runs-count', response.data.total_count);
   } catch (error) {

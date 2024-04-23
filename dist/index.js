@@ -54440,7 +54440,7 @@ const action_1 = __nccwpck_require__(1231);
 const octokit = new action_1.Octokit();
 async function run() {
     try {
-        core.info('hello from workflow-runs action');
+        core.debug('hello from workflow-runs action');
         const inputGithubRepository = core.getInput('github-repository', {
             required: false,
         });
@@ -54471,6 +54471,8 @@ async function run() {
                 'X-GitHub-Api-Version': '2022-11-28',
             },
         });
+        core.info('Output of GitHub API call ->');
+        core.info(JSON.stringify(response.data, undefined, 2));
         core.setOutput('runs-summary', JSON.stringify(response.data, undefined, 2));
         core.setOutput('runs-count', response.data.total_count);
     }
