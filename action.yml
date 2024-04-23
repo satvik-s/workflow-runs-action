@@ -1,5 +1,5 @@
 name: 'workflow-runs'
-description: 'Provide a description here'
+description: 'Summary of workflow runs for a given repository'
 author: 'Satvik shukla'
 
 branding:
