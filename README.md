@@ -19,20 +19,13 @@ name: check-stale-workflow-runs
 on:
   schedule:
     - cron: '*/5 * * * *'
-  pull_request:
-    types:
-      - opened
-      - edited
-      - synchronize
-      - labeled
-      - unlabeled
 
 jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
       - name: workflow-runs
-        uses: satvik-s/workflow-runs-action@v0.0.2
+        uses: satvik-s/workflow-runs-action@v0.0.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
