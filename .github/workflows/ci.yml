@@ -61,8 +61,7 @@ jobs:
 
       - name: Print Output - default
         id: output-test-action-default
-        run: |
-          printf "${{ steps.test-action-default.outputs.runs-summary }}"
+        run: printf "${{ steps.test-action-default.outputs.runs-count }}"
 
       - id: test-setp
         run: |
