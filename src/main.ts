@@ -29,30 +29,32 @@ export async function run(): Promise<void> {
         ? process.env.GITHUB_REPOSITORY!
         : inputGithubRepository;
     const [owner, repo] = githubRepository.split('/');
-
+    const octoRequest = {
+      owner,
+      repo,
+      status:
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workflowRunStatus === '' ? undefined : (workflowRunStatus as any),
+      created:
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workflowRunCreatedRelativeHours === ''
+          ? undefined
+          : `<${getCreatedTimeString(workflowRunCreatedRelativeHours)}`,
+      branch:
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workflowRunBranch === '' ? undefined : (workflowRunBranch as any),
+      actor:
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        workflowRunActor === '' ? undefined : (workflowRunActor as any),
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    };
+    core.info('Octokit request data ->');
+    core.info(JSON.stringify(octoRequest, undefined, 2));
     const response = await octokit.request(
       'GET /repos/{owner}/{repo}/actions/runs',
-      {
-        owner,
-        repo,
-        status:
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          workflowRunStatus === '' ? undefined : (workflowRunStatus as any),
-        created:
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          workflowRunCreatedRelativeHours === ''
-            ? undefined
-            : `<${getCreatedTimeString(workflowRunCreatedRelativeHours)}`,
-        branch:
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          workflowRunBranch === '' ? undefined : (workflowRunBranch as any),
-        actor:
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          workflowRunActor === '' ? undefined : (workflowRunActor as any),
-        headers: {
-          'X-GitHub-Api-Version': '2022-11-28',
-        },
-      },
+      octoRequest,
     );
     core.info('Output of GitHub API call ->');
     core.info(JSON.stringify(response.data, undefined, 2));

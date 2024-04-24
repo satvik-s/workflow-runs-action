@@ -54460,7 +54460,7 @@ async function run() {
             ? process.env.GITHUB_REPOSITORY
             : inputGithubRepository;
         const [owner, repo] = githubRepository.split('/');
-        const response = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
+        const octoRequest = {
             owner,
             repo,
             status: workflowRunStatus === '' ? undefined : workflowRunStatus,
@@ -54472,7 +54472,10 @@ async function run() {
             headers: {
                 'X-GitHub-Api-Version': '2022-11-28',
             },
-        });
+        };
+        core.info('Octokit request data ->');
+        core.info(JSON.stringify(octoRequest, undefined, 2));
+        const response = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', octoRequest);
         core.info('Output of GitHub API call ->');
         core.info(JSON.stringify(response.data, undefined, 2));
         core.setOutput('runs-summary', JSON.stringify(response.data, undefined, 2));
