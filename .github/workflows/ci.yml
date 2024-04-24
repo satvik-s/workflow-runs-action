@@ -60,7 +60,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Print Output
-        id: output
+        id: output-test-action-default
         run: printf "${{ steps.test-action-default.outputs.runs-count }}"
 
       - name: Test Local Action - relative date
@@ -72,7 +72,7 @@ jobs:
           workflow-run-created-hours-before: 24
 
       - name: Print Output
-        id: output
+        id: output-test-action-relative-created-timestamp
         run:
           printf "${{
           steps.test-action-relative-created-timestamp.outputs.runs-count }}"
