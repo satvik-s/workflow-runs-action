@@ -31,12 +31,12 @@ jobs:
         id: get-release-tag
         shell: bash
         run:
-          echo "release-tag=v$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+          echo 'release-tag=v$(jq -r .version package.json)' >> $GITHUB_OUTPUT
       - name: Push changes
         run: |
           git checkout -b sshukla/version-bump-$VERSION
           git push -u origin HEAD
-          gh pr create --title "chore: update version to $VERSION" --body "update to version $VERSION" --base main --assignee satvik-s
+          gh pr create --title 'chore: update version to $VERSION' --body 'update to version $VERSION' --base main --assignee satvik-s
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_PACKAGE_PAT }}
           VERSION: ${{ steps.get-release-tag.outputs.release-tag }}
