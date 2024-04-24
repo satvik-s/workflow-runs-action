@@ -61,12 +61,13 @@ jobs:
 
       - name: Print Output - default
         id: output-test-action-default
-        run:
-          printf "${{ steps.test-action-default.outputs.runs-summary }}" | jq -r
-          '.workflow_runs.name'
+        run: |
+          printf "${{ steps.test-action-default.outputs.runs-summary }}"
 
       - id: test-setp
-        run: '${{ steps.test-action-default.outputs.runs-count }}'
+        run: |
+          printf "${{ steps.test-action-default.outputs.runs-summary }}" | jq -r
+          '.workflow_runs.name'
 
       - name: Test Local Action - relative date
         id: test-action-relative-created-timestamp
