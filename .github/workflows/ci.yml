@@ -54,13 +54,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Test Local Action - default
-        id: test-action
+        id: test-action-default
         uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test Local Action - relative date
-        id: test-action
+        id: test-action-relative-created-timestamp
         uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
