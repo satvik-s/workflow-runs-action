@@ -53,11 +53,19 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
-      - name: Test Local Action
+      - name: Test Local Action - default
         id: test-action
         uses: ./
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Test Local Action - relative date
+        id: test-action
+        uses: ./
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          workflow-run-created-hours-before: 12
 
       - name: Print Output
         id: output

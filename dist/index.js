@@ -54447,7 +54447,7 @@ async function run() {
         const workflowRunStatus = core.getInput('workflow-run-status', {
             required: false,
         });
-        const workflowRunCreated = core.getInput('workflow-run-created', {
+        const workflowRunCreatedRelativeHours = core.getInput('workflow-run-created-hours-before', {
             required: false,
         });
         const workflowRunBranch = core.getInput('workflow-run-branch', {
@@ -54464,7 +54464,9 @@ async function run() {
             owner,
             repo,
             status: workflowRunStatus === '' ? undefined : workflowRunStatus,
-            created: workflowRunCreated === '' ? undefined : workflowRunCreated,
+            created: workflowRunCreatedRelativeHours === ''
+                ? undefined
+                : `<${getCreatedTimeString(workflowRunCreatedRelativeHours)}`,
             branch: workflowRunBranch === '' ? undefined : workflowRunBranch,
             actor: workflowRunActor === '' ? undefined : workflowRunActor,
             headers: {
@@ -54482,6 +54484,11 @@ async function run() {
     }
 }
 exports.run = run;
+function getCreatedTimeString(hoursInput) {
+    const currentTimeMs = Date.now();
+    const relativeTimeInPastMs = parseInt(hoursInput) * 60 * 60 * 1000;
+    return new Date(currentTimeMs - relativeTimeInPastMs).toISOString();
+}
 
 
 /***/ }),

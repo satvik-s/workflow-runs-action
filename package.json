@@ -1,7 +1,7 @@
 {
   "name": "workflow-runs",
   "description": "GitHub Actions TypeScript template",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Satvik Shukla",
   "private": true,
   "homepage": "https://github.com/satvik-s/workflow-runs-action",
@@ -38,7 +38,8 @@
   "license": "MIT",
   "dependencies": {
     "@actions/core": "1.10.1",
-    "@octokit/action": "6.1.0"
+    "@octokit/action": "6.1.0",
+    "chrono-node": "2.7.5"
   },
   "devDependencies": {
     "@types/node": "20.12.7",

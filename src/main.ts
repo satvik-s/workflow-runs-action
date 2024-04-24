@@ -12,9 +12,12 @@ export async function run(): Promise<void> {
     const workflowRunStatus = core.getInput('workflow-run-status', {
       required: false,
     });
-    const workflowRunCreated = core.getInput('workflow-run-created', {
-      required: false,
-    });
+    const workflowRunCreatedRelativeHours = core.getInput(
+      'workflow-run-created-hours-before',
+      {
+        required: false,
+      },
+    );
     const workflowRunBranch = core.getInput('workflow-run-branch', {
       required: false,
     });
@@ -37,7 +40,9 @@ export async function run(): Promise<void> {
           workflowRunStatus === '' ? undefined : (workflowRunStatus as any),
         created:
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          workflowRunCreated === '' ? undefined : (workflowRunCreated as any),
+          workflowRunCreatedRelativeHours === ''
+            ? undefined
+            : `<${getCreatedTimeString(workflowRunCreatedRelativeHours)}`,
         branch:
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           workflowRunBranch === '' ? undefined : (workflowRunBranch as any),
@@ -56,4 +61,10 @@ export async function run(): Promise<void> {
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message);
   }
+}
+
+function getCreatedTimeString(hoursInput: string): string {
+  const currentTimeMs = Date.now();
+  const relativeTimeInPastMs = parseInt(hoursInput) * 60 * 60 * 1000;
+  return new Date(currentTimeMs - relativeTimeInPastMs).toISOString();
 }
