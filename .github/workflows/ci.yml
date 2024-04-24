@@ -65,7 +65,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          workflow-run-created-hours-before: 12
+          workflow-run-created-hours-before: 24
 
       - name: Print Output
         id: output
