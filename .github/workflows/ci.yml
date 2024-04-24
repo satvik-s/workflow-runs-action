@@ -65,7 +65,7 @@ jobs:
 
       - id: test-setp
         run: |
-          "${{ steps.test-action-default.outputs.runs-summary }}" | jq -r
+          ${{ steps.test-action-default.outputs.runs-summary }} | jq -r
           '.workflow_runs.name'
 
       - name: Test Local Action - relative date
