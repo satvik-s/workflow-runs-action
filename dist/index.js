@@ -54476,8 +54476,8 @@ async function run() {
         core.info('Octokit request data ->');
         core.info(JSON.stringify(octoRequest, undefined, 2));
         const response = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', octoRequest);
-        core.info('Output of GitHub API call ->');
-        core.info(JSON.stringify(response.data, undefined, 2));
+        core.debug('Output of GitHub API call ->');
+        core.debug(JSON.stringify(response.data, undefined, 2));
         core.setOutput('runs-summary', JSON.stringify(response.data, undefined, 2));
         core.setOutput('runs-count', response.data.total_count);
     }
