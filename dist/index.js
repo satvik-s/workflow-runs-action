@@ -54447,7 +54447,7 @@ async function run() {
         const workflowRunStatus = core.getInput('workflow-run-status', {
             required: false,
         });
-        const workflowRunCreated = core.getInput('workflow-run-created', {
+        const workflowRunCreatedRelativeHours = core.getInput('workflow-run-created-hours-before', {
             required: false,
         });
         const workflowRunBranch = core.getInput('workflow-run-branch', {
@@ -54460,17 +54460,22 @@ async function run() {
             ? process.env.GITHUB_REPOSITORY
             : inputGithubRepository;
         const [owner, repo] = githubRepository.split('/');
-        const response = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', {
+        const octoRequest = {
             owner,
             repo,
             status: workflowRunStatus === '' ? undefined : workflowRunStatus,
-            created: workflowRunCreated === '' ? undefined : workflowRunCreated,
+            created: workflowRunCreatedRelativeHours === ''
+                ? undefined
+                : `<${getCreatedTimeString(workflowRunCreatedRelativeHours)}`,
             branch: workflowRunBranch === '' ? undefined : workflowRunBranch,
             actor: workflowRunActor === '' ? undefined : workflowRunActor,
             headers: {
                 'X-GitHub-Api-Version': '2022-11-28',
             },
-        });
+        };
+        core.info('Octokit request data ->');
+        core.info(JSON.stringify(octoRequest, undefined, 2));
+        const response = await octokit.request('GET /repos/{owner}/{repo}/actions/runs', octoRequest);
         core.info('Output of GitHub API call ->');
         core.info(JSON.stringify(response.data, undefined, 2));
         core.setOutput('runs-summary', JSON.stringify(response.data, undefined, 2));
@@ -54482,6 +54487,11 @@ async function run() {
     }
 }
 exports.run = run;
+function getCreatedTimeString(hoursInput) {
+    const currentTimeMs = Date.now();
+    const relativeTimeInPastMs = parseInt(hoursInput) * 60 * 60 * 1000;
+    return new Date(currentTimeMs - relativeTimeInPastMs).toISOString();
+}
 
 
 /***/ }),
